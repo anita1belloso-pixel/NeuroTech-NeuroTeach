@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acuerdos de Clases Particulares | Anabela Belloso</title>
+    <style>
+        :root {
+            --sage-dark: #3b5247;
+            --sage-main: #4a6b5d;
+            --sage-light: #7a9a8b;
+            --sage-bg: #f4f7f5;
+            --sage-card: #ffffff;
+            --text-color: #2c3e35;
+            --border-color: #d1dcda;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--sage-bg);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: var(--sage-card);
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(74, 107, 93, 0.1);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid var(--sage-bg);
+            padding-bottom: 25px;
+        }
+
+        .brain-icon {
+            width: 70px;
+            height: 70px;
+            background-color: var(--sage-bg);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            box-shadow: 0 4px 10px rgba(74, 107, 93, 0.15);
+        }
+
+        .brain-icon svg {
+            width: 40px;
+            height: 40px;
+            fill: var(--sage-main);
+        }
+
+        h1 {
+            color: var(--sage-dark);
+            font-size: 24px;
+            margin: 0 0 10px 0;
+        }
+
+        .intro {
+            font-size: 15px;
+            color: #526e62;
+            margin-bottom: 25px;
+            background-color: var(--sage-bg);
+            padding: 15px 20px;
+            border-left: 4px solid var(--sage-main);
+            border-radius: 0 8px 8px 0;
+        }
+
+        .section-title {
+            color: var(--sage-dark);
+            font-size: 17px;
+            margin-top: 25px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 1px dashed var(--border-color);
+            padding-bottom: 5px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+            margin: 0 0 20px 0;
+        }
+
+        li {
+            margin-bottom: 12px;
+            font-size: 14px;
+        }
+
+        strong {
+            color: var(--sage-dark);
+        }
+
+        .interactive-input {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 14px;
+            font-family: inherit;
+            background-color: #fafcfb;
+            color: var(--text-color);
+            box-sizing: border-box;
+            margin-top: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .interactive-input:focus {
+            outline: none;
+            border-color: var(--sage-main);
+            background-color: #fff;
+            box-shadow: 0 0 5px rgba(74, 107, 93, 0.2);
+        }
+
+        .signatures-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 40px;
+            border-top: 2px solid var(--sage-bg);
+            padding-top: 30px;
+        }
+
+        @media (max-width: 600px) {
+            .signatures-grid {
+                grid-template-columns: 1fr;
+            }
+            .container {
+                padding: 20px;
+            }
+        }
+
+        .sig-box {
+            text-align: center;
+        }
+
+        .sig-box p {
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--sage-dark);
+            font-size: 14px;
+        }
+
+        .sig-canvas-container {
+            border: 2px dashed var(--border-color);
+            border-radius: 8px;
+            background-color: #fafcfb;
+            position: relative;
+            height: 120px;
+            margin-bottom: 8px;
+        }
+
+        canvas {
+            width: 100%;
+            height: 100%;
+            cursor: crosshair;
+            touch-action: none;
+        }
+
+        .clear-btn {
+            background: none;
+            border: none;
+            color: #8c9e95;
+            font-size: 12px;
+            cursor: pointer;
+            text-decoration: underline;
+            padding: 0;
+        }
+
+        .clear-btn:hover {
+            color: var(--sage-dark);
+        }
+
+        .teacher-signature {
+            height: 120px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            background-color: #fafcfb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Brush Script MT', cursive, sans-serif;
+            font-size: 28px;
+            color: var(--sage-dark);
+        }
+
+        .actions {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .btn-print {
+            background-color: var(--sage-main);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 15px;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            box-shadow: 0 4px 12px rgba(74, 107, 93, 0.2);
+        }
+
+        .btn-print:hover {
+            background-color: var(--sage-dark);
+        }
+
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            .container {
+                box-shadow: none;
+                padding: 0;
+            }
+            .btn-print, .clear-btn {
+                display: none;
+            }
+            .interactive-input {
+                border: none;
+                border-bottom: 1px solid #000;
+                background: transparent;
+                padding: 2px 0;
+            }
+            .sig-canvas-container, .teacher-signature {
+                border: 1px solid #999;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <div class="brain-icon">
+            <svg viewBox="0 0 24 24">
+                <path d="M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4M12,6A6,6 0 0,1 18,12A6,6 0 0,1 12,18A6,6 0 0,1 6,12A6,6 0 0,1 12,6M12,8A4,4 0 0,0 8,12A4,4 0 0,0 12,16A4,4 0 0,0 16,12A4,4 0 0,0 12,8Z"/>
+            </svg>
+        </div>
+        <h1>Acuerdos para nuestras clases particulares</h1>
+        <p style="margin: 0; color: var(--sage-light); font-size: 14px; font-weight: 500;">Año Escolar 2026-2027</p>
+    </div>
+
+    <div class="intro">
+        ¡Hola! El propósito de este espacio es diseñar un puente de confianza y bienestar donde mi alumna pueda aprender a su propio ritmo, sintiéndose segura, motivada y comprendida, siempre en mira de más exigencia. Para que trabajemos en equipo de la forma más fluida y organizada, te comparto algunos puntos clave sobre cómo nos entenderemos este año escolar 26-27:
+    </div>
+
+    <div class="section-title">1. Horarios y dinámica</div>
+    <ul>
+        <li>
+            <strong>Cuándo nos veremos:</strong>
+            <input type="text" class="interactive-input" placeholder="Ej: Lunes y miércoles de 3:00 PM a 4:30 PM">
+        </li>
+        <li style="margin-top: 10px;">
+            <strong>El espacio ideal:</strong> Para cuidar su atención y facilitar que el cerebro procese mejor la información, idealmente buscaremos un espacio en casa libre de distracciones y adaptado a su estatura.
+        </li>
+    </ul>
+
+    <div class="section-title">2. Mi enfoque: Neuroeducación y bienestar cerebral</div>
+    <ul>
+        <li><strong>Por mi parte:</strong> Diseñaré experiencias basadas en neuroeducación, respetando sus tiempos cognitivos y fomentando la gestión emocional.</li>
+        <li><strong>Entrenamiento de neurofeedback (cuando sea necesario):</strong> Si en algún momento noto fatiga mental, dispersión o alta exigencia, podremos integrar sesiones cortas de entrenamiento con tecnología de neurofeedback. Esta herramienta ayuda a entrenar la atención, reducir el estrés y mejorar la autorregulación cerebral, optimizando su rendimiento y bienestar.</li>
+        <li><strong>Por parte de la familia:</strong> Asegurarse de que cuente con sus materiales básicos a la mano y apoyar el hábito de repasar o practicar.</li>
+    </ul>
+
+    <div class="section-title">3. Cuidando el tiempo de todos (Cancelaciones y reposiciones)</div>
+    <ul>
+        <li><strong>Reserva de agenda y aviso previo:</strong> Al apartar este bloque horario de forma fija para mi alumna, este se convierte en un espacio exclusivo en mi agenda. Por ello, las clases canceladas (salvo emergencias) se considerarán como dictadas y deberán ser abonadas.</li>
+        <li><strong>Flexibilidad por salud e imprevistos:</strong> Enfermarse o imprevistos es natural. Para apoyarles sin desatender el valor del tiempo de planificación, si se avisa con la debida anticipación, buscaremos un espacio dentro de la misma semana para reponerla (sujeto a disponibilidad), logrando así mantener el hilo conductor de su aprendizaje sin perder su inversión.</li>
+        <li><strong>Mis imprevistos:</strong> Si por fuerza mayor necesito cambiar una sesión, les avisaré con el mayor margen posible y buscaremos un espacio cómodo para reponerla.</li>
+        <li><strong>Horas extra:</strong> Si en algún momento dedicamos más tiempo del acordado por alguna necesidad puntual del contenido, este se ajustará según su valor.</li>
+    </ul>
+
+    <div class="section-title">4. Inversión</div>
+    <ul>
+        <li><strong>Tarifa:</strong> $35 por clase.</li>
+        <li>
+            <strong>Modalidad y fechas de pago:</strong>
+            <input type="text" class="interactive-input" placeholder="Ej: Pagos quincenales / mensuales vía Zelle o Efectivo">
+        </li>
+    </ul>
+
+    <div class="signatures-grid">
+        <div class="sig-box">
+            <p>Firma de la Familia</p>
+            <div class="sig-canvas-container">
+                <canvas id="sig-family"></canvas>
+            </div>
+            <button type="button" class="clear-btn" id="clear-family">Limpiar firma</button>
+        </div>
+        <div class="sig-box">
+            <p>Anabela Belloso</p>
+            <div class="teacher-signature">
+                Anabela Belloso
+            </div>
+            <span style="font-size: 12px; color: var(--sage-light);">Neuroeducadora</span>
+        </div>
+    </div>
+
+    <div class="actions">
+        <button type="button" class="btn-print" onclick="window.print()">Guardar / Imprimir en PDF</button>
+    </div>
+</div>
+
+<script>
+    // Configuración del lienzo de firma digital interactiva
+    const canvas = document.getElementById('sig-family');
+    const ctx = canvas.getContext('2d');
+    let drawing = false;
+
+    function resizeCanvas() {
+        const rect = canvas.getBoundingClientRect();
+        canvas.width = rect.width;
+        canvas.height = rect.height;
+    }
+
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    function getPos(e) {
+        const rect = canvas.getBoundingClientRect();
+        const clientX = e.clientX || (e.touches && e.touches[0].clientX);
+        const clientY = e.clientY || (e.touches && e.touches[0].clientY);
+        return {
+            x: clientX - rect.left,
+            y: clientY - rect.top
+        };
+    }
+
+    canvas.addEventListener('mousedown', (e) => {
+        drawing = true;
+        ctx.beginPath();
+        const pos = getPos(e);
+        ctx.moveTo(pos.x, pos.y);
+    });
+
+    canvas.addEventListener('mousemove', (e) => {
+        if (!drawing) return;
+        const pos = getPos(e);
+        ctx.lineTo(pos.x, pos.y);
+        ctx.strokeStyle = '#3b5247';
+        ctx.lineWidth = 2;
+        ctx.lineCap = 'round';
+        ctx.stroke();
+    });
+
+    window.addEventListener('mouseup', () => { drawing = false; });
+
+    canvas.addEventListener('touchstart', (e) => {
+        drawing = true;
+        ctx.beginPath();
+        const pos = getPos(e);
+        ctx.moveTo(pos.x, pos.y);
+        e.preventDefault();
+    });
+
+    canvas.addEventListener('touchmove', (e) => {
+        if (!drawing) return;
+        const pos = getPos(e);
+        ctx.lineTo(pos.x, pos.y);
+        ctx.strokeStyle = '#3b5247';
+        ctx.lineWidth = 2;
+        ctx.lineCap = 'round';
+        ctx.stroke();
+        e.preventDefault();
+    });
+
+    canvas.addEventListener('touchend', () => { drawing = false; });
+
+    document.getElementById('clear-family').addEventListener('click', () => {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+    });
+</script>
+
+</body>
+</html>
